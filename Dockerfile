@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 go build -ldflags "-s -w" -o server &&\
   upx --best server -o _upx_server && \
   mv -f _upx_server server
 
-FROM scratch as runner
+FROM busybox as runner
 COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /usr/src/app/server /opt/app/
